@@ -1,0 +1,12 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/login": "pages/login.js",
+  "/patient": "pages/patient.js",
+  "/patient/exercises": "pages/patient/exercises.js",
+  "/patient/sessions": "pages/patient/sessions.js",
+  "/patient/sensor": "pages/patient/sensor.js",
+  "/patient/reports": "pages/patient/reports.js",
+  "/patient/chat": "pages/patient/chat.js"
+}

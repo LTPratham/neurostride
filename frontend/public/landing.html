@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NeuroStride — Healthcare Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* ── THEME TOKENS ── */
+[data-theme="light"]{
+  --bg:#F0F4F4;
+  --bg2:#E8EEEE;
+  --white:#FFFFFF;
+  --card:#FFFFFF;
+  --card2:#F5F8F8;
+  --nav-bg:rgba(255,255,255,0.92);
+  --navy:#384F4B;
+  --navy2:#2a3c38;
+  --text1:#384F4B;
+  --text2:#697A86;
+  --text3:#A3A8A9;
+  --border:rgba(163,168,169,0.2);
+  --border2:rgba(163,168,169,0.12);
+  --shadow:0 2px 14px rgba(56,79,75,0.08);
+  --shadow-md:0 8px 32px rgba(56,79,75,0.12);
+  --shadow-lg:0 20px 60px rgba(56,79,75,0.15);
+  --shadow-xl:0 32px 80px rgba(56,79,75,0.2);
+  --how-bg:#384F4B;
+  --how-card:rgba(255,255,255,0.06);
+  --how-border:rgba(255,255,255,0.1);
+  --how-text:rgba(255,255,255,0.55);
+  --consult-bg:#384F4B;
+  --overlay:rgba(56,79,75,0.4);
+  --input-bg:rgba(240,244,244,0.7);
+  --toggle-bg:#E8EEEE;
+  --toggle-icon:☀️;
+}
+[data-theme="dark"]{
+  --bg:#0E1514;
+  --bg2:#141C1B;
+  --white:#1A2322;
+  --card:#1E2B2A;
+  --card2:#223130;
+  --nav-bg:rgba(14,21,20,0.94);
+  --navy:#E8F0EF;
+  --navy2:#C8D8D6;
+  --text1:#E8F0EF;
+  --text2:#9BB0AD;
+  --text3:#5A7570;
+  --border:rgba(79,176,179,0.15);
+  --border2:rgba(79,176,179,0.08);
+  --shadow:0 2px 14px rgba(0,0,0,0.3);
+  --shadow-md:0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+  --shadow-xl:0 32px 80px rgba(0,0,0,0.6);
+  --how-bg:#0E1514;
+  --how-card:rgba(79,176,179,0.06);
+  --how-border:rgba(79,176,179,0.15);
+  --how-text:rgba(232,240,239,0.5);
+  --consult-bg:#0E1514;
+  --overlay:rgba(0,0,0,0.65);
+  --input-bg:rgba(30,43,42,0.8);
+  --toggle-bg:#1E2B2A;
+  --toggle-icon:🌙;
+}
+
+:root{
+  --teal:#4FB0B3;
+  --teal-d:#3A9A9D;
+  --teal-l:#E8F7F7;
+  --teal-xl:#F0FAFA;
+  --green:#2DA44E;
+  --red:#E5534B;
+  --yellow:#F5C842;
+  --r:12px;--r-lg:20px;--r-xl:28px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-back:cubic-bezier(.34,1.56,.64,1);
+}
+
+html{font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text1);min-height:100vh;overflow-x:hidden;transition:background 0.35s var(--ease),color 0.35s var(--ease)}
+button{font-family:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{object-fit:cover;display:block}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:4px;opacity:.4}
+
+/* ── DARK MODE TOGGLE ── */
+.theme-toggle{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--border);
+  background:var(--toggle-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;cursor:pointer;
+  transition:all 0.3s var(--ease-back);
+  flex-shrink:0;
+  box-shadow:var(--shadow);
+}
+.theme-toggle:hover{
+  transform:rotate(20deg) scale(1.12);
+  border-color:var(--teal);
+  box-shadow:0 4px 16px rgba(79,176,179,.25);
+}
+
+/* ── NAV ── */
+nav{
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+  padding:0 52px;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  transition:background 0.35s,border-color 0.35s;
+  box-shadow:var(--shadow);
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:36px;height:36px;border-radius:10px;background:var(--teal);display:flex;align-items:center;justify-content:center;transition:transform 0.3s var(--ease-back)}
+.nav-logo-icon:hover{transform:scale(1.1) rotate(-5deg)}
+.nav-logo-icon svg{width:20px;height:20px}
+.nav-logo-text{font-size:18px;font-weight:800;color:var(--text1);letter-spacing:-.02em;transition:color 0.3s}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{
+  color:var(--text2);font-size:14px;font-weight:500;
+  padding:7px 16px;border-radius:24px;
+  transition:all 0.2s var(--ease);
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:2px;left:50%;right:50%;
+  height:2px;background:var(--teal);border-radius:1px;
+  transition:all 0.25s var(--ease);
+}
+.nav-links a:hover{color:var(--text1);background:var(--teal-l)}
+.nav-links a:hover::after{left:16px;right:16px}
+[data-theme="dark"] .nav-links a:hover{background:rgba(79,176,179,.1)}
+.nav-links a.active{color:var(--teal);background:var(--teal-l);font-weight:600}
+[data-theme="dark"] .nav-links a.active{background:rgba(79,176,179,.12)}
+.nav-btns{display:flex;gap:10px;align-items:center}
+.btn-outline{padding:9px 20px;border-radius:24px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);font-size:14px;font-weight:600;transition:all 0.25s var(--ease)}
+.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(79,176,179,.35)}
+.btn-fill{padding:9px 20px;border-radius:24px;border:none;background:var(--teal);color:#fff;font-size:14px;font-weight:600;box-shadow:0 4px 14px rgba(79,176,179,.3);transition:all 0.25s var(--ease)}
+.btn-fill:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,176,179,.45)}
+
+/* ── HERO ── */
+.hero{max-width:1200px;margin:0 auto;padding:80px 52px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:calc(100vh - 68px)}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:var(--teal-l);border:1px solid rgba(79,176,179,.25);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--teal);font-weight:700;letter-spacing:.06em;margin-bottom:24px;animation:fu .5s var(--ease) .1s both}
+[data-theme="dark"] .hero-tag{background:rgba(79,176,179,.1)}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:bl 1.5s infinite}
+@keyframes bl{0%,100%{opacity:.4}50%{opacity:1}}
+.hero-title{font-size:clamp(36px,4.5vw,58px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;animation:fu .5s var(--ease) .2s both;color:var(--text1)}
+.hero-title span{color:var(--teal)}
+.hero-desc{font-size:17px;line-height:1.75;color:var(--text2);margin-bottom:36px;font-family:'DM Sans',sans-serif;max-width:460px;animation:fu .5s var(--ease) .3s both}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;animation:fu .5s var(--ease) .4s both}
+.btn-hero{padding:14px 32px;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .25s var(--ease);position:relative;overflow:hidden}
+.btn-hero::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);opacity:0;transition:opacity .2s}
+.btn-hero:hover::after{opacity:1}
+.btn-hero-primary{background:var(--teal);color:#fff;box-shadow:0 6px 24px rgba(79,176,179,.38)}
+.btn-hero-primary:hover{background:var(--teal-d);transform:translateY(-3px);box-shadow:0 12px 36px rgba(79,176,179,.5)}
+.btn-hero-primary:active{transform:translateY(-1px)}
+.btn-hero-sec{background:var(--card);color:var(--text1);border:1.5px solid var(--border);box-shadow:var(--shadow)}
+.btn-hero-sec:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.hero-stats{display:flex;gap:32px;animation:fu .5s var(--ease) .5s both}
+.hero-stat-val{font-size:26px;font-weight:900;color:var(--text1);letter-spacing:-.02em}
+.hero-stat-lbl{font-size:12px;color:var(--text2);font-weight:500;margin-top:2px}
+
+/* ── HERO VISUAL ── */
+.hero-visual{position:relative;animation:fr .6s var(--ease) .3s both}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fr{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
+
+/* Doctor card in hero */
+.hero-card-main{
+  background:var(--card);border-radius:var(--r-xl);padding:24px;
+  box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+  transition:box-shadow 0.3s var(--ease);
+}
+.hero-card-main:hover{box-shadow:var(--shadow-xl)}
+.hero-card-main::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(79,176,179,.08) 0%,transparent 70%);pointer-events:none}
+
+/* Doctor profile in hero */
+.hero-doc-img{
+  width:100%;height:180px;border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px;
+  position:relative;
+}
+.hero-doc-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.5s var(--ease)}
+.hero-card-main:hover .hero-doc-img img{transform:scale(1.04)}
+.doc-badge{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-radius:100px;padding:5px 12px;font-size:11px;color:#fff;font-weight:600;display:flex;align-items:center;gap:6px}
+.online-dot-white{width:6px;height:6px;border-radius:50%;background:#4FB0B3;animation:bl 1.5s infinite}
+
+.hero-doc-info{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.hero-doc-name{font-size:16px;font-weight:800;color:var(--text1)}
+.hero-doc-spec{font-size:12px;color:var(--text2)}
+.status-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(45,164,78,.1);border-radius:100px;padding:3px 10px;font-size:11px;color:var(--green);font-weight:600;border:1px solid rgba(45,164,78,.2)}
+.status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:bl 1.5s infinite}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.mini-stat{background:var(--card2);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--border2);transition:all 0.2s var(--ease)}
+.mini-stat:hover{background:var(--teal-l);border-color:rgba(79,176,179,.25);transform:translateY(-2px)}
+[data-theme="dark"] .mini-stat:hover{background:rgba(79,176,179,.1)}
+.mini-stat-v{font-size:18px;font-weight:800;color:var(--text1)}
+.mini-stat-l{font-size:10px;color:var(--text2);font-weight:500}
+.book-btn-full{width:100%;padding:13px;border-radius:100px;border:none;background:var(--teal);color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 16px rgba(79,176,179,.35);transition:all .25s var(--ease);cursor:pointer;position:relative;overflow:hidden}
+.book-btn-full::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);opacity:0;transition:opacity .2s}
+.book-btn-full:hover::after{opacity:1}
+.book-btn-full:hover{background:var(--teal-d);box-shadow:0 8px 28px rgba(79,176,179,.5);transform:translateY(-2px)}
+
+/* Floating cards */
+.float-card{
+  position:absolute;background:var(--card);border-radius:14px;
+  box-shadow:var(--shadow-md);padding:12px 16px;
+  animation:cardFloat 4s ease-in-out infinite;
+  border:1px solid var(--border2);
+  transition:background 0.35s,border-color 0.35s;
+}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-card-1{bottom:-16px;left:-24px;animation-delay:.5s;display:flex;align-items:center;gap:10px}
+.float-card-2{top:-16px;right:-16px;animation-delay:1.2s}
+.fc-icon{width:36px;height:36px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s var(--ease)}
+.float-card:hover .fc-icon{background:var(--teal);transform:scale(1.1)}
+.float-card:hover .fc-icon svg{stroke:#fff}
+[data-theme="dark"] .fc-icon{background:rgba(79,176,179,.15)}
+.fc-label{font-size:11px;color:var(--text2);font-weight:500}
+.fc-value{font-size:14px;font-weight:700;color:var(--text1)}
+
+/* ── FEATURES STRIP ── */
+.features-strip{
+  background:var(--card);
+  border-top:1px solid var(--border2);
+  border-bottom:1px solid var(--border2);
+  padding:28px 52px;
+  transition:background 0.35s;
+}
+.features-strip-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feat-item{
+  display:flex;align-items:center;gap:12px;padding:16px;
+  border-radius:var(--r);border:1px solid transparent;
+  transition:all 0.25s var(--ease);cursor:default;
+}
+.feat-item:hover{
+  background:var(--teal-l);border-color:rgba(79,176,179,.2);
+  transform:translateY(-3px);box-shadow:var(--shadow);
+}
+[data-theme="dark"] .feat-item:hover{background:rgba(79,176,179,.08);border-color:rgba(79,176,179,.2)}
+.feat-icon{width:40px;height:40px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.25s var(--ease-back)}
+[data-theme="dark"] .feat-icon{background:rgba(79,176,179,.12)}
+.feat-item:hover .feat-icon{background:var(--teal);transform:scale(1.1) rotate(-5deg)}
+.feat-item:hover .feat-icon svg{stroke:#fff}
+.feat-title{font-size:13px;font-weight:700;color:var(--text1);margin-bottom:2px;transition:color 0.2s}
+.feat-desc{font-size:11px;color:var(--text2);line-height:1.4}
+.feat-item:hover .feat-title{color:var(--teal)}
+
+/* ── SECTIONS ── */
+.section{max-width:1200px;margin:0 auto;padding:80px 52px}
+.sec-bg{background:var(--bg);transition:background 0.35s}
+.sec-bg-alt{background:var(--card);transition:background 0.35s;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2)}
+.section-tag{font-size:11px;color:var(--teal);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px;color:var(--text1)}
+.section-sub{font-size:15px;color:var(--text2);line-height:1.7;max-width:500px;margin-bottom:48px;font-family:'DM Sans',sans-serif}
+
+/* ── DOCTORS GRID ── */
+.doctor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+.doctor-card{
+  background:var(--card);border-radius:var(--r-lg);
+  overflow:hidden;box-shadow:var(--shadow);
+  transition:all 0.3s var(--ease);cursor:pointer;
+  border:2px solid transparent;
+  position:relative;
+}
+.doctor-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100%;
+  background:linear-gradient(to top,rgba(56,79,75,.7) 0%,transparent 55%);
+  opacity:0;transition:opacity 0.3s var(--ease);z-index:1;
+}
+.doctor-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:rgba(79,176,179,.3)}
+.doctor-card:hover::before{opacity:1}
+.doctor-card.selected{border-color:var(--teal);box-shadow:0 0 0 4px rgba(79,176,179,.15),var(--shadow-md)}
+
+.doc-img-wrap{width:100%;height:200px;overflow:hidden;position:relative;background:var(--card2)}
+.doc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.5s var(--ease)}
+.doctor-card:hover .doc-img-wrap img{transform:scale(1.08)}
+
+.doc-img-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:52px;font-weight:900;letter-spacing:-.02em;
+  background:linear-gradient(135deg,var(--teal-l),rgba(79,176,179,.3));
+  color:var(--teal-d);
+  transition:transform 0.4s var(--ease);
+}
+[data-theme="dark"] .doc-img-placeholder{background:linear-gradient(135deg,rgba(79,176,179,.15),rgba(79,176,179,.05));color:var(--teal)}
+.doctor-card:hover .doc-img-placeholder{transform:scale(1.05)}
+
+.doc-card-overlay{
+  position:absolute;bottom:0;left:0;right:0;padding:14px;z-index:2;
+  opacity:0;transform:translateY(8px);transition:all 0.3s var(--ease);
+}
+.doctor-card:hover .doc-card-overlay{opacity:1;transform:translateY(0)}
+.doc-overlay-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:2px}
+.doc-overlay-spec{font-size:11px;color:rgba(255,255,255,.75)}
+.doc-overlay-btn{margin-top:8px;background:var(--teal);color:#fff;border:none;border-radius:100px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s}
+.doc-overlay-btn:hover{background:#fff;color:var(--teal)}
+
+.doc-info{padding:14px 16px;border-top:1px solid var(--border2)}
+.doc-name{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:3px}
+.doc-spec{font-size:12px;color:var(--text2);margin-bottom:8px}
+.doc-rating{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)}
+.doc-rating .stars{color:var(--yellow);letter-spacing:-1px}
+.doc-avail{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--green);font-weight:600;margin-top:6px}
+.doc-avail-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:bl 1.5s infinite}
+
+/* ── HOW IT WORKS ── */
+.how-bg{background:var(--how-bg);padding:80px 52px;transition:background 0.35s}
+.how-inner{max-width:1200px;margin:0 auto}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.how-card{
+  background:var(--how-card);border:1px solid var(--how-border);
+  border-radius:var(--r-lg);padding:32px 28px;
+  position:relative;overflow:hidden;transition:all .3s var(--ease);
+}
+.how-card::after{content:'';position:absolute;inset:0;border-radius:var(--r-lg);border:1px solid rgba(79,176,179,.4);opacity:0;transition:opacity .3s}
+.how-card:hover{background:rgba(79,176,179,.12);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.how-card:hover::after{opacity:1}
+.how-num{font-size:52px;font-weight:900;color:rgba(79,176,179,.18);position:absolute;top:16px;right:20px;letter-spacing:-.04em;transition:all .3s}
+.how-card:hover .how-num{color:rgba(79,176,179,.35);transform:scale(1.1)}
+.how-icon-box{width:48px;height:48px;border-radius:14px;background:rgba(79,176,179,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:all .3s var(--ease-back)}
+.how-card:hover .how-icon-box{background:var(--teal);transform:scale(1.12) rotate(-6deg)}
+.how-card:hover .how-icon-box svg{stroke:#fff}
+.how-title{font-size:17px;font-weight:800;color:#E8F0EF;margin-bottom:8px}
+.how-desc{font-size:13px;color:var(--how-text);line-height:1.65;font-family:'DM Sans',sans-serif}
+
+/* ── FLOW / STEPS ── */
+.flow-section{background:var(--card);border-top:1px solid var(--border2);padding:80px 52px;transition:background 0.35s}
+.flow-inner{max-width:1200px;margin:0 auto}
+.flow-steps{display:flex;align-items:center;gap:0;margin-bottom:44px}
+.flow-step{display:flex;align-items:center;gap:8px;flex:1}
+.flow-step-circle{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;transition:all .3s var(--ease-back);cursor:default}
+.flow-step-circle.done{background:var(--teal);color:#fff;box-shadow:0 4px 12px rgba(79,176,179,.35)}
+.flow-step-circle.active{background:var(--navy);color:var(--card);box-shadow:0 4px 12px rgba(56,79,75,.25)}
+[data-theme="dark"] .flow-step-circle.active{background:#E8F0EF;color:#0E1514}
+.flow-step-circle.todo{background:var(--card2);color:var(--text3);border:2px solid var(--border)}
+.flow-step-label{font-size:12px;font-weight:600;color:var(--text2)}
+.flow-step-label.active{color:var(--text1);font-weight:800}
+.flow-line{flex:1;height:2px;background:var(--border);margin:0 10px;border-radius:1px;position:relative;overflow:hidden}
+.flow-line.done::after{content:'';position:absolute;inset:0;background:var(--teal);border-radius:1px;animation:lineGrow .4s var(--ease) forwards}
+@keyframes lineGrow{from{width:0}to{width:100%}}
+
+/* SERVICE CARDS */
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card{
+  border-radius:var(--r-lg);padding:28px 24px;
+  border:2px solid transparent;cursor:pointer;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+}
+.service-card.active-s{background:var(--teal);border-color:var(--teal);box-shadow:0 8px 28px rgba(79,176,179,.4)}
+.service-card.idle-s{background:var(--card2);border-color:var(--border)}
+.service-card.idle-s:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .3s var(--ease-back)}
+.service-card:hover .sc-icon{transform:scale(1.12) rotate(-6deg)}
+.sc-icon.active-si{background:rgba(255,255,255,.25)}
+.sc-icon.idle-si{background:var(--teal-l)}
+[data-theme="dark"] .sc-icon.idle-si{background:rgba(79,176,179,.12)}
+.sc-title{font-size:15px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+.service-card.active-s .sc-title{color:#fff}
+.service-card.idle-s .sc-title{color:var(--text1)}
+.sc-desc{font-size:12px;line-height:1.65;font-family:'DM Sans',sans-serif}
+.service-card.active-s .sc-desc{color:rgba(255,255,255,.78)}
+.service-card.idle-s .sc-desc{color:var(--text2)}
+.sc-check{position:absolute;top:16px;right:16px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;opacity:0;transform:scale(.6);transition:all .25s var(--ease-back)}
+.service-card.active-s .sc-check{opacity:1;transform:scale(1)}
+
+/* ── CALENDAR ── */
+.cal-card{background:var(--card);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow);transition:background 0.35s}
+.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.cal-month{font-size:17px;font-weight:800;color:var(--text1)}
+.cal-nav{display:flex;gap:6px}
+.cal-nav-btn{width:34px;height:34px;border-radius:9px;border:1.5px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s var(--ease)}
+.cal-nav-btn:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-l);transform:scale(1.08)}
+[data-theme="dark"] .cal-nav-btn:hover{background:rgba(79,176,179,.1)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day-name{text-align:center;font-size:11px;font-weight:700;color:var(--text3);padding:6px 0;letter-spacing:.04em}
+.cal-day{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s var(--ease-back);margin:2px auto;color:var(--text2)}
+.cal-day.empty{pointer-events:none}
+.cal-day.available{color:var(--text1);font-weight:600}
+.cal-day.available:hover{background:var(--teal-l);color:var(--teal);transform:scale(1.15)}
+[data-theme="dark"] .cal-day.available:hover{background:rgba(79,176,179,.15)}
+.cal-day.selected-d{background:var(--teal);color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(79,176,179,.4);transform:scale(1.1)}
+.cal-day.disabled{color:var(--text3);pointer-events:none;opacity:.4}
+.cal-day.today{border:2px solid var(--teal);color:var(--teal);font-weight:700}
+.time-section-title{font-size:14px;font-weight:700;color:var(--text1);margin:22px 0 14px}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.time-slot{padding:10px 8px;border-radius:10px;border:1.5px solid var(--border);background:var(--card2);font-size:12px;font-weight:600;color:var(--text1);text-align:center;cursor:pointer;transition:all .2s var(--ease-back)}
+.time-slot:hover{border-color:var(--teal);background:var(--teal-l);color:var(--teal);transform:scale(1.05)}
+[data-theme="dark"] .time-slot:hover{background:rgba(79,176,179,.1)}
+.time-slot.selected-t{background:var(--teal);color:#fff;border-color:var(--teal);box-shadow:0 4px 12px rgba(79,176,179,.35);transform:scale(1.05)}
+.time-slot.unavail{color:var(--text3);pointer-events:none;opacity:.45}
+.continue-btn{width:100%;margin-top:20px;padding:14px;border-radius:100px;border:none;background:var(--teal);color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(79,176,179,.35);transition:all .25s var(--ease)}
+.continue-btn:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 8px 28px rgba(79,176,179,.5)}
+
+/* BOOKING SUMMARY */
+.booking-summary{background:var(--card);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow);transition:background 0.35s}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border2)}
+.summary-row:last-of-type{border-bottom:none}
+.sr-label{font-size:13px;color:var(--text2);font-weight:500}
+.sr-val{font-size:13px;font-weight:700;color:var(--text1)}
+.total-row{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:2px solid var(--border);margin-top:4px}
+.total-label{font-size:14px;font-weight:700;color:var(--text1)}
+.total-val{font-size:20px;font-weight:900;color:var(--teal)}
+
+/* ── CONSULTATION ── */
+.consult-section{background:var(--consult-bg);padding:80px 52px;transition:background 0.35s}
+.consult-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.consult-left{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-xl);overflow:hidden;position:relative;transition:box-shadow .3s}
+.consult-left:hover{box-shadow:0 16px 48px rgba(0,0,0,.3)}
+[data-theme="dark"] .consult-left{background:rgba(79,176,179,.04);border-color:rgba(79,176,179,.12)}
+.online-badge{position:absolute;top:18px;left:18px;background:rgba(79,176,179,.2);border:1px solid rgba(79,176,179,.35);border-radius:100px;padding:6px 14px;font-size:11px;color:var(--teal);font-weight:700;display:flex;align-items:center;gap:6px;backdrop-filter:blur(8px);z-index:2}
+.timer-badge{position:absolute;top:18px;right:18px;background:rgba(0,0,0,.55);border-radius:100px;padding:6px 14px;font-size:12px;color:#fff;font-weight:600;backdrop-filter:blur(8px);z-index:2}
+.consult-visual{height:320px;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(79,176,179,.08) 0%,rgba(56,79,75,.5) 100%)}
+.consult-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:.7;transition:transform .5s var(--ease)}
+.consult-left:hover .consult-visual img{transform:scale(1.04)}
+.doc-pulse{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;border:2px solid rgba(79,176,179,.4);animation:pulsRing 2s ease infinite}
+@keyframes pulsRing{0%{transform:translate(-50%,-50%) scale(.8);opacity:.8}100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
+.doc-name-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);padding:20px 20px 16px}
+.doc-overlay-name2{font-size:15px;font-weight:800;color:#fff}
+.doc-overlay-spec2{font-size:12px;color:rgba(255,255,255,.65)}
+.call-controls{display:flex;justify-content:center;align-items:center;gap:10px;padding:18px 20px}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s var(--ease-back);font-size:15px}
+.ctrl-btn.ctrl-normal{background:rgba(232,240,239,.1);color:#E8F0EF;border:1px solid rgba(255,255,255,.12)}
+.ctrl-btn.ctrl-normal:hover{background:rgba(79,176,179,.2);border-color:var(--teal);transform:scale(1.12)}
+.ctrl-btn.ctrl-end{background:var(--red);color:#fff;padding:0 20px;width:auto;border-radius:100px;font-size:13px;font-weight:700;gap:6px}
+.ctrl-btn.ctrl-end:hover{background:#cc3d35;transform:scale(1.05);box-shadow:0 6px 20px rgba(229,83,75,.4)}
+
+/* CHAT */
+.chat-panel{background:var(--card);border-radius:var(--r-xl);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-md);transition:background 0.35s}
+.chat-header{padding:18px 20px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px}
+.chat-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--card2);border:2px solid var(--border)}
+.chat-avatar img{width:100%;height:100%;object-fit:cover}
+.chat-doc-name{font-size:14px;font-weight:700;color:var(--text1)}
+.chat-doc-spec{font-size:11px;color:var(--text2)}
+.online-dot2{width:8px;height:8px;border-radius:50%;background:var(--green);margin-left:auto;animation:bl 1.5s infinite;box-shadow:0 0 6px rgba(45,164,78,.5)}
+.chat-messages{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;max-height:290px}
+.msg{display:flex;flex-direction:column;max-width:78%}
+.msg-doc{align-self:flex-start}
+.msg-user{align-self:flex-end;align-items:flex-end}
+.msg-bubble{padding:11px 15px;border-radius:16px;font-size:13px;line-height:1.55;font-family:'DM Sans',sans-serif;transition:transform .2s var(--ease)}
+.msg-bubble:hover{transform:scale(1.02)}
+.msg-doc .msg-bubble{background:var(--card2);color:var(--text1);border-radius:4px 16px 16px 16px;border:1px solid var(--border2)}
+.msg-user .msg-bubble{background:var(--teal);color:#fff;border-radius:16px 4px 16px 16px}
+.msg-time{font-size:10px;color:var(--text3);margin-top:4px;font-weight:500}
+.sys-msg{text-align:center;font-size:11px;color:var(--text3);background:var(--card2);border-radius:100px;padding:5px 14px;align-self:center;font-weight:500;border:1px solid var(--border2)}
+.chat-input-row{padding:14px 18px;border-top:1px solid var(--border2);display:flex;gap:10px;align-items:center}
+.chat-input{flex:1;border:1.5px solid var(--border);border-radius:100px;padding:10px 16px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;background:var(--input-bg);color:var(--text1);transition:all .2s}
+.chat-input:focus{border-color:var(--teal);background:var(--card);box-shadow:0 0 0 3px rgba(79,176,179,.1)}
+.send-btn{width:38px;height:38px;border-radius:50%;border:none;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s var(--ease-back);flex-shrink:0}
+.send-btn:hover{background:var(--teal-d);transform:scale(1.12) rotate(10deg)}
+
+/* ── PAYMENT ── */
+.payment-card{background:var(--card2);border-radius:var(--r-xl);padding:30px;box-shadow:var(--shadow);transition:background 0.35s}
+.pay-title{font-size:18px;font-weight:800;color:var(--text1);margin-bottom:20px}
+.pay-method{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s var(--ease)}
+.pay-method:hover{border-color:var(--teal);transform:translateX(3px)}
+.pay-method.selected-pm{border-color:var(--teal);background:var(--teal-l)}
+[data-theme="dark"] .pay-method.selected-pm{background:rgba(79,176,179,.08)}
+.pay-method-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.pay-method.selected-pm .pay-method-radio{border-color:var(--teal)}
+.pay-method-radio-inner{width:8px;height:8px;border-radius:50%;background:var(--teal);opacity:0;transform:scale(.5);transition:all .2s var(--ease-back)}
+.pay-method.selected-pm .pay-method-radio-inner{opacity:1;transform:scale(1)}
+.pay-method-name{font-size:14px;font-weight:600;color:var(--text1)}
+.pay-method-logo{margin-left:auto;font-size:18px}
+.pay-breakdown{background:var(--card);border-radius:var(--r);padding:18px;margin-top:16px;border:1px solid var(--border2)}
+.pay-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px}
+.pay-row.pay-total{border-top:2px solid var(--border);margin-top:4px;padding-top:14px;font-weight:800;font-size:15px}
+.pay-row-label{color:var(--text2)}
+.pay-row-val{color:var(--text1);font-weight:600}
+.pay-row.pay-total .pay-row-val{color:var(--teal);font-size:18px}
+.pay-btn{width:100%;margin-top:18px;padding:14px;border-radius:100px;border:none;background:var(--teal);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(79,176,179,.4);transition:all .25s var(--ease);position:relative;overflow:hidden}
+.pay-btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);opacity:0;transition:opacity .2s}
+.pay-btn:hover::after{opacity:1}
+.pay-btn:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 10px 30px rgba(79,176,179,.5)}
+
+/* ── CTA ── */
+.cta-section{background:var(--teal);padding:80px 52px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none;animation:cta-float 6s ease-in-out infinite}
+.cta-section::after{content:'';position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;animation:cta-float 8s ease-in-out infinite reverse}
+@keyframes cta-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+.cta-title{font-size:clamp(28px,4vw,46px);font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:14px;position:relative;z-index:1}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.78);margin-bottom:36px;font-family:'DM Sans',sans-serif;position:relative;z-index:1}
+.cta-btn-w{padding:14px 40px;border-radius:100px;border:none;background:#fff;color:var(--teal);font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 8px 28px rgba(0,0,0,.15);transition:all .25s var(--ease);position:relative;z-index:1}
+.cta-btn-w:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 40px rgba(0,0,0,.2)}
+
+/* ── FOOTER ── */
+footer{background:var(--how-bg);padding:40px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;transition:background 0.35s}
+.f-brand{display:flex;align-items:center;gap:8px}
+.f-brand-icon{width:28px;height:28px;border-radius:8px;background:var(--teal);display:flex;align-items:center;justify-content:center}
+.f-brand-text{font-size:14px;font-weight:800;color:#E8F0EF}
+footer span{font-size:12px;color:rgba(255,255,255,.32)}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.rvl{opacity:0;transform:translateX(-24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.rvr{opacity:0;transform:translateX(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.rvs{opacity:0;transform:scale(.94);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.vis{opacity:1!important;transform:none!important}
+.d1{transition-delay:.07s!important}.d2{transition-delay:.14s!important}
+.d3{transition-delay:.21s!important}.d4{transition-delay:.28s!important}
+.d5{transition-delay:.35s!important}.d6{transition-delay:.42s!important}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--card);border-radius:var(--r-xl);padding:36px;max-width:520px;width:92%;box-shadow:var(--shadow-xl);transform:translateY(24px) scale(.96);transition:all .35s var(--ease);border:1px solid var(--border2)}
+.modal-overlay.open .modal{transform:none}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modal-title{font-size:19px;font-weight:800;color:var(--text1)}
+.modal-close{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text2);transition:all .2s var(--ease-back)}
+.modal-close:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-l);transform:rotate(90deg) scale(1.1)}
+[data-theme="dark"] .modal-close:hover{background:rgba(79,176,179,.1)}
+
+/* ── RIPPLE EFFECT ── */
+.ripple{position:relative;overflow:hidden}
+.ripple-effect{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rippleAnim .5s linear;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <span class="nav-logo-text">NeuroStride</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#doctors" class="active">Doctors</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#consult">Consultation</a></li>
+    <li><a href="#payment">Billing</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="/login"><button class="btn-outline">Sign in</button></a>
+    <a href="/login"><button class="btn-fill">Get Started</button></a>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" id="theme-btn">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="background:var(--card);transition:background 0.35s">
+<div class="hero">
+  <div>
+    <div class="hero-tag"><span class="hero-tag-dot"></span>AI REHABILITATION PLATFORM</div>
+    <h1 class="hero-title">Your recovery,<br/><span>guided by AI</span></h1>
+    <p class="hero-desc">NeuroStride combines BCI-powered therapy, smart pharmacy, and AI clinical tools into one seamless platform for paralysis and stroke recovery patients.</p>
+    <div class="hero-btns">
+      <button class="btn-hero btn-hero-primary ripple" onclick="ripple(event);document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
+      <button class="btn-hero btn-hero-sec ripple" onclick="ripple(event);document.getElementById('consult').scrollIntoView({behavior:'smooth'})">Watch Demo</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">1,200+</div><div class="hero-stat-lbl">Patients Treated</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="hero-stat-val">98%</div><div class="hero-stat-lbl">Satisfaction Rate</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="hero-stat-val">24/7</div><div class="hero-stat-lbl">AI Support</div></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card-main">
+      <div class="hero-doc-img">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&fit=crop&crop=top" alt="Dr. Priya Sharma" loading="lazy"/>
+        <div class="doc-badge"><span class="online-dot-white"></span>Available Now</div>
+      </div>
+      <div class="hero-doc-info">
+        <div>
+          <div class="hero-doc-name">Dr. Priya Sharma</div>
+          <div class="hero-doc-spec">Senior Neurologist &bull; 10 yrs exp.</div>
+        </div>
+        <div style="margin-left:auto"><div class="status-badge"><span class="status-dot"></span>Online</div></div>
+      </div>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="mini-stat-v">10yr</div><div class="mini-stat-l">Experience</div></div>
+        <div class="mini-stat"><div class="mini-stat-v">5K+</div><div class="mini-stat-l">Patients</div></div>
+        <div class="mini-stat"><div class="mini-stat-v">4.9&#9733;</div><div class="mini-stat-l">Rating</div></div>
+      </div>
+      <button class="book-btn-full ripple" onclick="ripple(event);openModal()">Book Appointment</button>
+    </div>
+
+    <div class="float-card float-card-1">
+      <div class="fc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="fc-label">Session Progress</div><div class="fc-value">12 / 20 Complete</div></div>
+    </div>
+    <div class="float-card float-card-2">
+      <div class="fc-label">&#128197; Next Session</div>
+      <div class="fc-value">Today, 3:00 PM</div>
+      <div style="color:var(--yellow);font-size:12px;margin-top:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-strip">
+  <div class="features-strip-inner">
+    <div class="feat-item rv d1">
+      <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div><div class="feat-title">BCI Motor Control</div><div class="feat-desc">Think to move — arm responds</div></div>
+    </div>
+    <div class="feat-item rv d2">
+      <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="feat-title">AI Analytics</div><div class="feat-desc">EMG scores every session</div></div>
+    </div>
+    <div class="feat-item rv d3">
+      <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+      <div><div class="feat-title">Smart Pharmacy</div><div class="feat-desc">6-agent AI, OCR prescriptions</div></div>
+    </div>
+    <div class="feat-item rv d4">
+      <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div><div class="feat-title">15 Languages</div><div class="feat-desc">Hindi, Tamil, Telugu & more</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCTORS -->
+<div class="sec-bg" id="doctors">
+<div class="section">
+  <div class="rv"><div class="section-tag">Our Specialists</div>
+  <h2 class="section-title">Find your doctor</h2>
+  <p class="section-sub">Board-certified specialists in neurology and rehabilitation, available for online and in-person consultations.</p></div>
+  <div class="doctor-grid">
+
+    <div class="doctor-card rv d1" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80&fit=crop&crop=top" alt="Dr. Priya Sharma" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Priya Sharma</div>
+          <div class="doc-overlay-spec">Neurologist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Priya Sharma</div>
+        <div class="doc-spec">Senior Neurologist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 (312)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Available today</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d2" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80&fit=crop&crop=top" alt="Dr. Rajiv Kumar" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Rajiv Kumar</div>
+          <div class="doc-overlay-spec">Rehab Specialist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Rajiv Kumar</div>
+        <div class="doc-spec">Rehabilitation Specialist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 (198)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Available today</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d3" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80&fit=crop&crop=top" alt="Dr. Anita Mehta" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Anita Mehta</div>
+          <div class="doc-overlay-spec">Physiotherapist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Anita Mehta</div>
+        <div class="doc-spec">Physiotherapist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 4.7 (156)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Next: 4:00 PM</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d4" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80&fit=crop&crop=top" alt="Dr. Suresh Patel" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Suresh Patel</div>
+          <div class="doc-overlay-spec">Neurosurgeon</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Suresh Patel</div>
+        <div class="doc-spec">Neurosurgeon</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 5.0 (88)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Available today</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d1" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=400&q=80&fit=crop&crop=top" alt="Dr. Neha Kapoor" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Neha Kapoor</div>
+          <div class="doc-overlay-spec">Occupational Therapist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Neha Kapoor</div>
+        <div class="doc-spec">Occupational Therapist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 4.6 (210)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Next: 2:00 PM</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d2" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80&fit=crop&crop=top" alt="Dr. Vikram Singh" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Vikram Singh</div>
+          <div class="doc-overlay-spec">Cardiologist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Vikram Singh</div>
+        <div class="doc-spec">Cardiologist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 (445)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Available today</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d3" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1584516150909-c43483ee7932?w=400&q=80&fit=crop&crop=top" alt="Dr. Divya Chandra" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Divya Chandra</div>
+          <div class="doc-overlay-spec">Neuropsychologist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Divya Chandra</div>
+        <div class="doc-spec">Neuropsychologist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 4.7 (134)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Next: 5:00 PM</div>
+      </div>
+    </div>
+
+    <div class="doctor-card rv d4" onclick="selectDoc(this,'book')">
+      <div class="doc-img-wrap">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&q=80&fit=crop&crop=top" alt="Dr. Mohan Rao" loading="lazy"/>
+        <div class="doc-card-overlay">
+          <div class="doc-overlay-name">Dr. Mohan Rao</div>
+          <div class="doc-overlay-spec">Spine Specialist</div>
+          <button class="doc-overlay-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="doc-info">
+        <div class="doc-name">Dr. Mohan Rao</div>
+        <div class="doc-spec">Spine Specialist</div>
+        <div class="doc-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 (267)</div>
+        <div class="doc-avail"><span class="doc-avail-dot"></span>Available today</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-bg">
+  <div class="how-inner">
+    <div class="rv" style="color:#E8F0EF">
+      <div style="font-size:11px;color:var(--teal);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">How It Works</div>
+      <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;color:#E8F0EF;letter-spacing:-.025em;margin-bottom:12px">Recovery in 3 simple steps</h2>
+      <p style="font-size:15px;color:rgba(232,240,239,.55);max-width:460px;font-family:'DM Sans',sans-serif;line-height:1.7">NeuroStride guides every step from first consultation to full rehabilitation.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card rv d1">
+        <div class="how-num">01</div>
+        <div class="how-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="how-title">Book Your Session</div>
+        <div class="how-desc">Choose your specialist, select a service type, pick a date and time. Takes under 2 minutes.</div>
+      </div>
+      <div class="how-card rv d2">
+        <div class="how-num">02</div>
+        <div class="how-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="how-title">Start Rehabilitation</div>
+        <div class="how-desc">Connect your Neuphony device, follow your AI exercise plan with live EMG feedback.</div>
+      </div>
+      <div class="how-card rv d3">
+        <div class="how-num">03</div>
+        <div class="how-icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="how-title">Track Progress</div>
+        <div class="how-desc">Monitor form scores, EMG signals over time. Doctor reviews AI reports and adjusts your plan.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING FLOW -->
+<div class="flow-section" id="book">
+  <div class="flow-inner">
+    <div class="rv">
+      <div class="section-tag">Book Appointment</div>
+      <h2 class="section-title">Choose your service</h2>
+      <p class="section-sub">Select the type of care you need. Complete the steps below.</p>
+    </div>
+    <div class="flow-steps rv">
+      <div class="flow-step"><div class="flow-step-circle active" id="s1c">1</div><div class="flow-step-label active" id="s1l">Select Service</div></div>
+      <div class="flow-line" id="l1"></div>
+      <div class="flow-step"><div class="flow-step-circle todo" id="s2c">2</div><div class="flow-step-label" id="s2l">Date &amp; Time</div></div>
+      <div class="flow-line" id="l2"></div>
+      <div class="flow-step"><div class="flow-step-circle todo" id="s3c">3</div><div class="flow-step-label" id="s3l">Confirm &amp; Pay</div></div>
+    </div>
+
+    <div id="step-1">
+      <div class="service-grid">
+        <div class="service-card active-s" onclick="selectService(this)">
+          <div class="sc-check">&#10003;</div>
+          <div class="sc-icon active-si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="sc-title">CONSULTATION</div>
+          <div class="sc-desc">Assessment of neurological condition, analysis of patient complaints, referral for additional examinations.</div>
+        </div>
+        <div class="service-card idle-s" onclick="selectService(this)">
+          <div class="sc-check">&#10003;</div>
+          <div class="sc-icon idle-si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="sc-title">TREATMENT</div>
+          <div class="sc-desc">Spinal diseases, neurological disorders after stroke, neuropathy and related conditions.</div>
+        </div>
+        <div class="service-card idle-s" onclick="selectService(this)">
+          <div class="sc-check">&#10003;</div>
+          <div class="sc-icon idle-si"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="sc-title">NON-DRUG THERAPY</div>
+          <div class="sc-desc">Physiotherapy, massage, reflexology, therapeutic exercise and BCI-guided motor rehabilitation.</div>
+        </div>
+      </div>
+      <div style="margin-top:28px;display:flex;justify-content:flex-end">
+        <button class="continue-btn ripple" style="width:auto;padding:13px 40px" onclick="ripple(event);goStep(2)">Proceed to Date &amp; Time &rarr;</button>
+      </div>
+    </div>
+
+    <div id="step-2" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div class="cal-card">
+          <div class="cal-header">
+            <span class="cal-month" id="cal-lbl">March 2026</span>
+            <div class="cal-nav">
+              <button class="cal-nav-btn" onclick="changeMonth(-1)">&larr;</button>
+              <button class="cal-nav-btn" onclick="changeMonth(1)">&rarr;</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="time-section-title">Available Times</div>
+          <div class="time-grid">
+            <div class="time-slot" onclick="selTime(this)">9:00 AM</div>
+            <div class="time-slot" onclick="selTime(this)">10:00 AM</div>
+            <div class="time-slot unavail">11:00 AM</div>
+            <div class="time-slot" onclick="selTime(this)">1:00 PM</div>
+            <div class="time-slot selected-t" onclick="selTime(this)">2:00 PM</div>
+            <div class="time-slot unavail">3:00 PM</div>
+            <div class="time-slot" onclick="selTime(this)">4:00 PM</div>
+            <div class="time-slot" onclick="selTime(this)">5:30 PM</div>
+          </div>
+          <button class="continue-btn ripple" onclick="ripple(event);goStep(3)">Continue &rarr;</button>
+        </div>
+        <div class="booking-summary">
+          <div style="font-size:16px;font-weight:800;color:var(--text1);margin-bottom:18px">Booking Summary</div>
+          <div class="summary-row"><span class="sr-label">Doctor</span><span class="sr-val">Dr. Priya Sharma</span></div>
+          <div class="summary-row"><span class="sr-label">Service</span><span class="sr-val">Consultation</span></div>
+          <div class="summary-row"><span class="sr-label">Date</span><span class="sr-val" id="sel-date">Select a date</span></div>
+          <div class="summary-row"><span class="sr-label">Time</span><span class="sr-val" id="sel-time">2:00 PM</span></div>
+          <div class="summary-row"><span class="sr-label">Duration</span><span class="sr-val">45 mins</span></div>
+          <div class="total-row"><span class="total-label">Fee</span><span class="total-val">&#8377;800</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="step-3" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+        <div style="background:var(--card2);border-radius:var(--r-xl);padding:28px;border:1px solid var(--border2)">
+          <h3 style="font-size:16px;font-weight:800;color:var(--text1);margin-bottom:18px">Appointment Details</h3>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:var(--card);border-radius:var(--r-lg);border:1px solid var(--border2)">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&q=80&fit=crop&crop=top" style="width:56px;height:56px;border-radius:14px;object-fit:cover" alt="Doctor"/>
+            <div><div style="font-size:15px;font-weight:800;color:var(--text1)">Dr. Priya Sharma</div><div style="font-size:12px;color:var(--text2);margin-top:2px">Neurologist &bull; NeuroStride Clinic</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="background:var(--card);border-radius:10px;padding:14px;border:1px solid var(--border2)"><div style="font-size:10px;color:var(--text2);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">DATE</div><div style="font-size:13px;font-weight:800;color:var(--text1)">March 28, 2026</div></div>
+            <div style="background:var(--card);border-radius:10px;padding:14px;border:1px solid var(--border2)"><div style="font-size:10px;color:var(--text2);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">TIME</div><div style="font-size:13px;font-weight:800;color:var(--text1)">2:00 PM</div></div>
+            <div style="background:var(--card);border-radius:10px;padding:14px;border:1px solid var(--border2)"><div style="font-size:10px;color:var(--text2);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">SERVICE</div><div style="font-size:13px;font-weight:800;color:var(--teal)">Consultation</div></div>
+            <div style="background:var(--card);border-radius:10px;padding:14px;border:1px solid var(--border2)"><div style="font-size:10px;color:var(--text2);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">DURATION</div><div style="font-size:13px;font-weight:800;color:var(--text1)">45 mins</div></div>
+          </div>
+        </div>
+        <div class="payment-card">
+          <div class="pay-title">Payment</div>
+          <div class="pay-method selected-pm" onclick="selPay(this)">
+            <div class="pay-method-radio"><div class="pay-method-radio-inner"></div></div>
+            <div class="pay-method-name">UPI / PhonePe / GPay</div>
+            <div class="pay-method-logo">&#128241;</div>
+          </div>
+          <div class="pay-method" onclick="selPay(this)">
+            <div class="pay-method-radio"><div class="pay-method-radio-inner"></div></div>
+            <div class="pay-method-name">Credit / Debit Card</div>
+            <div class="pay-method-logo">&#128179;</div>
+          </div>
+          <div class="pay-method" onclick="selPay(this)">
+            <div class="pay-method-radio"><div class="pay-method-radio-inner"></div></div>
+            <div class="pay-method-name">Net Banking</div>
+            <div class="pay-method-logo">&#127968;</div>
+          </div>
+          <div class="pay-breakdown">
+            <div class="pay-row"><span class="pay-row-label">Consultation Fee</span><span class="pay-row-val">&#8377;800</span></div>
+            <div class="pay-row"><span class="pay-row-label">Platform Fee</span><span class="pay-row-val">&#8377;50</span></div>
+            <div class="pay-row"><span class="pay-row-label">GST (18%)</span><span class="pay-row-val">&#8377;153</span></div>
+            <div class="pay-row pay-total"><span class="pay-row-label">Total</span><span class="pay-row-val">&#8377;1,003</span></div>
+          </div>
+          <button class="pay-btn ripple" onclick="ripple(event);confirmBooking(this)">Confirm &amp; Pay &#8377;1,003</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONSULTATION -->
+<div class="consult-section" id="consult">
+  <div class="how-inner">
+    <div class="rv" style="color:#E8F0EF;margin-bottom:40px">
+      <div style="font-size:11px;color:var(--teal);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Live Session</div>
+      <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;color:#E8F0EF;letter-spacing:-.025em">Online Consultation</h2>
+    </div>
+    <div class="consult-inner">
+      <div class="consult-left rvl">
+        <div class="online-badge"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal);animation:bl 1.5s infinite"></span>Online consultation</div>
+        <div class="timer-badge">&#9201; 34 mins remaining</div>
+        <div class="consult-visual">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=75&fit=crop" alt="Doctor consultation" loading="lazy"/>
+          <div class="doc-pulse"></div>
+          <div class="doc-name-overlay">
+            <div class="doc-overlay-name2">Dr. Priya Sharma</div>
+            <div class="doc-overlay-spec2">Senior Neurologist</div>
+          </div>
+        </div>
+        <div class="call-controls">
+          <button class="ctrl-btn ctrl-normal" title="Mute mic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+          <button class="ctrl-btn ctrl-normal" title="Toggle camera"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button>
+          <button class="ctrl-btn ctrl-normal" title="Share screen"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+          <button class="ctrl-btn ctrl-end" id="leave-btn" onclick="leaveCall(this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Leave</button>
+        </div>
+      </div>
+
+      <div class="chat-panel rvr">
+        <div class="chat-header">
+          <div class="chat-avatar">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&q=80&fit=crop&crop=top" alt="Doctor"/>
+          </div>
+          <div>
+            <div class="chat-doc-name">Dr. Priya Sharma</div>
+            <div class="chat-doc-spec">Neurologist</div>
+          </div>
+          <div class="online-dot2"></div>
+        </div>
+        <div class="chat-messages" id="chat-msgs">
+          <div class="msg msg-doc"><div class="msg-bubble">Good afternoon! How are you feeling today? Any changes since our last session?</div><div class="msg-time">2:01 PM</div></div>
+          <div class="msg msg-user"><div class="msg-bubble">I managed to lift my arm higher this week. The exercises are really helping!</div><div class="msg-time">2:02 PM</div></div>
+          <div class="sys-msg">&#9679; Video call started</div>
+          <div class="msg msg-doc"><div class="msg-bubble">Excellent progress! Your EMG scores show 12% improvement. Keep following the daily plan.</div><div class="msg-time">2:03 PM</div></div>
+          <div class="msg msg-user"><div class="msg-bubble">Should I increase the reps or keep the same intensity?</div><div class="msg-time">2:04 PM</div></div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-input" placeholder="Type a message..." id="chat-in" onkeydown="if(event.key==='Enter')sendMsg()"/>
+          <button class="send-btn" onclick="sendMsg()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT -->
+<div class="sec-bg-alt" id="payment" style="padding:0">
+<div class="section">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center">
+    <div class="rvl">
+      <div class="section-tag">Billing</div>
+      <h2 class="section-title">Transparent pricing</h2>
+      <p class="section-sub">Simple, clear pricing with no hidden fees. Pay securely through UPI, cards, or net banking.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(79,176,179,.08);border-radius:var(--r);border:1px solid rgba(79,176,179,.2);transition:all .2s" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='none'">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text1)">Secure payment</div><div style="font-size:11px;color:var(--text2)">256-bit SSL encryption</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--card2);border-radius:var(--r);border:1px solid var(--border2);transition:all .2s" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='none'">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--card2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text1)">Free cancellation</div><div style="font-size:11px;color:var(--text2)">Cancel up to 2 hours before</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="payment-card rvr">
+      <div class="pay-title">Complete Payment</div>
+      <div class="pay-method selected-pm" onclick="selPay(this)">
+        <div class="pay-method-radio"><div class="pay-method-radio-inner"></div></div>
+        <div class="pay-method-name">UPI / PhonePe / GPay</div>
+        <div class="pay-method-logo">&#128241;</div>
+      </div>
+      <div class="pay-method" onclick="selPay(this)">
+        <div class="pay-method-radio"><div class="pay-method-radio-inner"></div></div>
+        <div class="pay-method-name">Credit / Debit Card</div>
+        <div class="pay-method-logo">&#128179;</div>
+      </div>
+      <div class="pay-breakdown">
+        <div class="pay-row"><span class="pay-row-label">Consultation Fee</span><span class="pay-row-val">&#8377;800</span></div>
+        <div class="pay-row"><span class="pay-row-label">Platform Fee</span><span class="pay-row-val">&#8377;50</span></div>
+        <div class="pay-row"><span class="pay-row-label">GST (18%)</span><span class="pay-row-val">&#8377;153</span></div>
+        <div class="pay-row pay-total"><span class="pay-row-label">Total</span><span class="pay-row-val">&#8377;1,003</span></div>
+      </div>
+      <button class="pay-btn ripple" onclick="ripple(event);alert('Payment successful! Appointment confirmed. Check your email for details.')">Pay &#8377;1,003 Securely &#128274;</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title">Start your recovery today</h2>
+  <p class="cta-sub">Join 1,200+ patients already using NeuroStride for their rehabilitation</p>
+  <button class="cta-btn-w ripple" onclick="ripple(event);document.getElementById('book').scrollIntoView({behavior:'smooth'})">Book Your First Session</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-brand-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <span class="f-brand-text">NeuroStride</span>
+  </div>
+  <span>Team LUNATICS &bull; LPU Ideathon 2026</span>
+  <span>SDG 3 &bull; Good Health &bull; SDG 10 &bull; Reduced Inequalities</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-ov" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:8px;background:var(--teal-l);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB0B3" stroke-width="2.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+        <span class="modal-title">Choose a service</span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+      <div style="background:var(--teal);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='none'" onclick="closeModal();goStep(2)">
+        <div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:4px">CONSULTATION</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.78);font-family:'DM Sans',sans-serif">Assessment, analysis of complaints, referral for examinations</div>
+      </div>
+      <div style="background:var(--card2);border-radius:var(--r);padding:18px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateX(5px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'" onclick="closeModal();goStep(2)">
+        <div style="font-size:14px;font-weight:800;color:var(--text1);margin-bottom:4px">TREATMENT</div>
+        <div style="font-size:12px;color:var(--text2);font-family:'DM Sans',sans-serif">Spinal diseases, neurological disorders after stroke, neuropathy</div>
+      </div>
+      <div style="background:var(--card2);border-radius:var(--r);padding:18px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateX(5px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'" onclick="closeModal();goStep(2)">
+        <div style="font-size:14px;font-weight:800;color:var(--text1);margin-bottom:4px">NON-DRUG THERAPY</div>
+        <div style="font-size:12px;color:var(--text2);font-family:'DM Sans',sans-serif">Physiotherapy, massage, reflexology, therapeutic exercise</div>
+      </div>
+    </div>
+    <button class="pay-btn ripple" onclick="ripple(event);closeModal();document.getElementById('book').scrollIntoView({behavior:'smooth'})">Go to Full Booking &rarr;</button>
+  </div>
+</div>
+
+<script>
+// ── DARK MODE ──
+function toggleTheme() {
+  const html = document.documentElement
+  const isDark = html.getAttribute('data-theme') === 'dark'
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark')
+  document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️'
+  localStorage.setItem('ns-theme', isDark ? 'light' : 'dark')
+}
+// Restore saved theme
+const saved = localStorage.getItem('ns-theme')
+if(saved) {
+  document.documentElement.setAttribute('data-theme', saved)
+  document.getElementById('theme-btn').textContent = saved === 'dark' ? '☀️' : '🌙'
+}
+
+// ── RIPPLE ──
+function ripple(e) {
+  const btn = e.currentTarget
+  const r = document.createElement('span')
+  const d = Math.max(btn.clientWidth, btn.clientHeight)
+  const rect = btn.getBoundingClientRect()
+  r.className = 'ripple-effect'
+  r.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX-rect.left-d/2}px;top:${e.clientY-rect.top-d/2}px`
+  btn.appendChild(r)
+  setTimeout(() => r.remove(), 600)
+}
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(e => e.forEach(x => {
+  if(x.isIntersecting) x.target.classList.add('vis')
+}), {threshold:.1, rootMargin:'0px 0px -40px 0px'})
+document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(el => obs.observe(el))
+
+// ── CALENDAR ──
+let calDate = new Date(2026,2,1)
+let selDay = 28
+const DAYS=['Su','Mo','Tu','We','Th','Fr','Sa']
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December']
+function renderCal() {
+  const lbl = document.getElementById('cal-lbl')
+  if(lbl) lbl.textContent = MONTHS[calDate.getMonth()] + ' ' + calDate.getFullYear()
+  const grid = document.getElementById('cal-grid')
+  if(!grid) return
+  grid.innerHTML = DAYS.map(d=>`<div class="cal-day-name">${d}</div>`).join('')
+  const first = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay()
+  const days  = new Date(calDate.getFullYear(), calDate.getMonth()+1, 0).getDate()
+  for(let i=0;i<first;i++) grid.innerHTML += `<div class="cal-day empty"></div>`
+  for(let d=1;d<=days;d++) {
+    const isToday = d===28 && calDate.getMonth()===2 && calDate.getFullYear()===2026
+    const isSel = d===selDay && calDate.getMonth()===calDate.getMonth()
+    const cls = isSel?'selected-d':isToday?'today':(d<10?'disabled':'available')
+    grid.innerHTML += `<div class="cal-day ${cls}" onclick="pickDay(${d})">${d}</div>`
+  }
+}
+function pickDay(d) {
+  selDay = d; renderCal()
+  const el = document.getElementById('sel-date')
+  if(el) el.textContent = MONTHS[calDate.getMonth()] + ' ' + d + ', ' + calDate.getFullYear()
+}
+function changeMonth(n) { calDate.setMonth(calDate.getMonth()+n); renderCal() }
+renderCal()
+
+// ── TIME SLOT ──
+function selTime(el) {
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected-t'))
+  el.classList.add('selected-t')
+  const tv = document.getElementById('sel-time')
+  if(tv) tv.textContent = el.textContent
+}
+
+// ── SERVICE SELECT ──
+function selectService(el) {
+  document.querySelectorAll('.service-card').forEach(c => {
+    c.classList.remove('active-s'); c.classList.add('idle-s')
+    c.querySelectorAll('.sc-icon').forEach(i=>{i.classList.remove('active-si');i.classList.add('idle-si')})
+    c.querySelectorAll('svg').forEach(s=>s.setAttribute('stroke','#4FB0B3'))
+  })
+  el.classList.add('active-s'); el.classList.remove('idle-s')
+  el.querySelectorAll('.sc-icon').forEach(i=>{i.classList.add('active-si');i.classList.remove('idle-si')})
+  el.querySelectorAll('svg').forEach(s=>s.setAttribute('stroke','#fff'))
+}
+
+// ── STEPS ──
+function goStep(n) {
+  document.getElementById('book').scrollIntoView({behavior:'smooth'})
+  setTimeout(()=>{
+    [1,2,3].forEach(i=>{
+      const p=document.getElementById('step-'+i)
+      if(p) p.style.display=i===n?'block':'none'
+      const c=document.getElementById('s'+i+'c')
+      if(c) c.className='flow-step-circle '+(i<n?'done':i===n?'active':'todo')
+      const l=document.getElementById('s'+i+'l')
+      if(l){l.className='flow-step-label';if(i===n)l.classList.add('active')}
+      const ln=document.getElementById('l'+i)
+      if(ln) ln.className='flow-line'+(i<n?' done':'')
+    })
+  },120)
+}
+
+// ── DOCTOR SELECT ──
+function selectDoc(card, target) {
+  document.querySelectorAll('.doctor-card').forEach(c=>c.classList.remove('selected'))
+  card.classList.add('selected')
+  setTimeout(()=>document.getElementById(target)?.scrollIntoView({behavior:'smooth'}),200)
+}
+
+// ── PAY METHOD ──
+function selPay(el) {
+  el.closest('.payment-card, div').querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected-pm'))
+  el.classList.add('selected-pm')
+}
+
+// ── MODAL ──
+function openModal(){document.getElementById('modal-ov').classList.add('open')}
+function closeModal(){document.getElementById('modal-ov').classList.remove('open')}
+
+// ── CHAT ──
+function sendMsg() {
+  const inp=document.getElementById('chat-in')
+  const txt=inp?.value?.trim(); if(!txt)return
+  const msgs=document.getElementById('chat-msgs')
+  const now=new Date();const t=now.getHours()+':'+(now.getMinutes()+'').padStart(2,'0')+' PM'
+  const div=document.createElement('div');div.className='msg msg-user'
+  div.innerHTML=`<div class="msg-bubble">${txt}</div><div class="msg-time">${t}</div>`
+  msgs.appendChild(div);inp.value='';msgs.scrollTop=msgs.scrollHeight
+  setTimeout(()=>{
+    const r=document.createElement('div');r.className='msg msg-doc'
+    const replies=['Thank you for sharing that. Let me review your latest EMG data.',
+      'Great progress! Your form score improved by 8% this week.',
+      'Keep following the plan. I\'ll adjust your exercises in the next session.',
+      'That\'s excellent news! Consistent effort is key to recovery.']
+    r.innerHTML=`<div class="msg-bubble">${replies[Math.floor(Math.random()*replies.length)]}</div><div class="msg-time">${t}</div>`
+    msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight
+  },1200)
+}
+
+// ── LEAVE CALL ──
+function leaveCall(btn) {
+  btn.style.background='#666'; btn.textContent='Left call'
+  btn.disabled=true
+}
+
+// ── CONFIRM BOOKING ──
+function confirmBooking(btn) {
+  btn.textContent='Booking confirmed!'
+  btn.style.background='var(--green)'
+  btn.style.boxShadow='0 6px 20px rgba(45,164,78,.4)'
+  setTimeout(()=>document.getElementById('consult').scrollIntoView({behavior:'smooth'}),1800)
+}
+</script>
+</body>
+</html>

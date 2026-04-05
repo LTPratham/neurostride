@@ -1,0 +1,188 @@
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+/* Alert banner */
+.alertBanner {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.alertItem {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  color: var(--text-secondary);
+}
+
+/* Main grid */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Orders */
+.orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.orderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+.orderRow:hover { background: var(--bg-elevated); }
+
+.orderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderId {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.orderDate {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Inventory */
+.inventoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inventoryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+.inventoryRow:hover { background: var(--bg-elevated); }
+
+.medName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.medMeta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.stockInfo { text-align: right; }
+.stockNum {
+  font-size: 16px;
+  font-weight: 700;
+}
+.stockLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Quick links */
+.quickRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.quickCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: block;
+  transition: all var(--transition);
+}
+.quickCard:hover {
+  border-color: var(--accent);
+  background: var(--bg-elevated);
+}
+
+.quickTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.quickDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Scanner page */
+.scanZone {
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  text-align: center;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.scanZone:hover, .scanZone.dragOver {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+}
+
+.scanIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+.scanTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.scanSub {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ocrResult {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+@media (max-width: 1100px) {
+  .statsRow  { grid-template-columns: repeat(2, 1fr); }
+  .mainGrid  { grid-template-columns: 1fr; }
+  .quickRow  { grid-template-columns: 1fr; }
+}

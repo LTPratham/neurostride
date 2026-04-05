@@ -1,0 +1,4 @@
+.statsRow { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
+.chartsRow { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:22px; }
+.bottomRow { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media(max-width:900px){ .statsRow{grid-template-columns:repeat(2,1fr)} .chartsRow,.bottomRow{grid-template-columns:1fr} }
