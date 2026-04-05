@@ -188,7 +188,7 @@ function InventoryTab() {
                   <td style={{ padding:'10px 12px' }}><Badge type={STATUS_COLOR[m.status]||'default'}>{m.status}</Badge></td>
                   <td style={{ padding:'10px 12px' }}>
                     <div style={{ display:'flex', gap:4 }}>
-                      <button onClick={() => setModal(m)} style={{ fontSize:12, color:'var(--accent)', background:'none', border:'1px solid var(--accent-muted)', borderRadius:4, padding:'4px 8px', cursor:'pointer' }}>Edit</button>
+                      <button onClick={() => setModal(m)} style={{ fontSize:12, color:'var(--teal)', background:'none', border:'1px solid var(--accent-muted)', borderRadius:4, padding:'4px 8px', cursor:'pointer' }}>Edit</button>
                       <button onClick={() => setAdjust(m.id)} style={{ fontSize:12, color:'var(--warning)', background:'none', border:'1px solid var(--warning-bg)', borderRadius:4, padding:'4px 8px', cursor:'pointer' }}>Stock</button>
                       <button onClick={() => deleteMed(m.id)} style={{ fontSize:12, color:'var(--danger)', background:'none', border:'1px solid var(--danger-bg)', borderRadius:4, padding:'4px 8px', cursor:'pointer' }}>Del</button>
                     </div>
@@ -231,7 +231,7 @@ Thank you for using NeuroStride PharmaMind
     if (!blob) return
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
-    a.download = \`Bill_\${orderCode}.docx\`
+    a.download = 'Bill_' + orderCode + '.docx'
     a.click()
   }).catch(() => alert('Bill download failed.'))
 }
@@ -412,7 +412,7 @@ function OCRTab() {
               onDrop={e => { e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]) }}
               onDragOver={e => { e.preventDefault(); setDragOver(true) }}
               onDragLeave={() => setDragOver(false)}
-              style={{ border:`2px dashed ${dragOver?'var(--accent)':'var(--border-strong)'}`, borderRadius:'var(--radius-lg)', padding:48, textAlign:'center', cursor:'pointer', background: dragOver?'var(--accent-muted)':'transparent' }}
+              style={{ border:`2px dashed ${dragOver?'var(--teal)':'var(--border-strong)'}`, borderRadius:'var(--radius-lg)', padding:48, textAlign:'center', cursor:'pointer', background: dragOver?'var(--accent-muted)':'transparent' }}
             >
               <p style={{ fontSize:15, fontWeight:600, color:'var(--text-primary)', marginBottom:6 }}>Drop prescription image here</p>
               <p style={{ fontSize:13, color:'var(--text-secondary)' }}>or click to browse — JPG, PNG</p>
@@ -527,7 +527,7 @@ function ChatTab() {
           <div style={{ display:'flex', flexDirection:'column', gap:6 }}>
             {QUICK.map((q,i) => (
               <button key={i} onClick={() => send(q)} style={{ textAlign:'left', padding:'8px 10px', background:'var(--bg-elevated)', border:'1px solid var(--border)', borderRadius:'var(--radius-sm)', fontSize:12, color:'var(--text-secondary)', cursor:'pointer', transition:'all 150ms' }}
-                onMouseOver={e => e.currentTarget.style.borderColor='var(--accent)'}
+                onMouseOver={e => e.currentTarget.style.borderColor='var(--teal)'}
                 onMouseOut={e => e.currentTarget.style.borderColor='var(--border)'}>{q}</button>
             ))}
           </div>
@@ -536,7 +536,7 @@ function ChatTab() {
           <p style={{ fontSize:12, color:'var(--text-muted)', textTransform:'uppercase', letterSpacing:'0.05em', marginBottom:8 }}>6 agents active</p>
           {[['Agent 1','Order Processing'],['Agent 2','Safety Validation'],['Agent 3','Refill Intelligence'],['Agent 4','Inventory Monitor'],['Agent 5','Prescription Verify'],['Agent 6','Analytics & Fraud']].map(([id,name]) => (
             <div key={id} style={{ display:'flex', gap:8, alignItems:'center', padding:'5px 0', borderBottom:'1px solid var(--border-subtle)' }}>
-              <span style={{ fontSize:11, color:'var(--accent)', fontFamily:'monospace', fontWeight:600 }}>{id}</span>
+              <span style={{ fontSize:11, color:'var(--teal)', fontFamily:'monospace', fontWeight:600 }}>{id}</span>
               <span style={{ fontSize:12, color:'var(--text-secondary)' }}>{name}</span>
               <span style={{ marginLeft:'auto', width:6, height:6, borderRadius:'50%', background:'var(--success)' }} />
             </div>
@@ -596,8 +596,8 @@ export default function PharmacyPro() {
           <button key={t.key} onClick={() => setTab(t.key)} style={{
             padding:'8px 18px', fontSize:13, fontWeight:500, cursor:'pointer',
             background:'none', border:'none',
-            color: tab===t.key ? 'var(--accent)' : 'var(--text-secondary)',
-            borderBottom: tab===t.key ? '2px solid var(--accent)' : '2px solid transparent',
+            color: tab===t.key ? 'var(--teal)' : 'var(--text-secondary)',
+            borderBottom: tab===t.key ? '2px solid var(--teal)' : '2px solid transparent',
             marginBottom:-1, transition:'all 150ms'
           }}>{t.label}</button>
         ))}
