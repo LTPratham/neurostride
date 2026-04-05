@@ -1,7 +1,4 @@
 # NeuroStride — Backend Dependencies
-# Install: pip install -r requirements.txt
-
-# Web framework
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
 python-multipart==0.0.9
@@ -9,22 +6,17 @@ python-multipart==0.0.9
 # Database
 sqlalchemy==2.0.35
 psycopg2-binary==2.9.9
-alembic==1.13.3
 
 # Auth
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
 
 # AI
 groq>=0.9.0
-openai==1.45.0          # Whisper STT (optional)
 
 # Observability
 langfuse>=2.7.0
-
-# Hardware / Serial
-pyserial==3.5
-websockets==13.0
 
 # Document generation
 python-docx==1.1.2
@@ -37,7 +29,5 @@ Pillow==10.4.0
 python-dotenv==1.0.1
 httpx>=0.23.0,<1.0.0
 pydantic[email]==2.9.1
+pydantic-core==2.23.4
 langdetect==1.0.9
-
-# Voice (TTS)
-edge-tts==6.1.12
