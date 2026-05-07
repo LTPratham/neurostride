@@ -37,6 +37,7 @@
 - [API Reference](#-api-reference)
 - [User Roles & Credentials](#-user-roles--test-credentials)
 - [Future Scope](#-future-scope)
+- [Patent](#-patent)
 - [Contributing](#-contributing)
 - [License](#-license)
 
@@ -289,6 +290,20 @@ NeuroStride is built with extensibility at its core. Here's the roadmap for what
 - [ ] **Real-time Notifications** — WebPush notifications for prescription updates and session reminders
 - [ ] **Multi-tenant SaaS** — Support multiple hospitals with isolated data namespaces
 - [ ] **Analytics Dashboard** — Aggregated, anonymized population-level rehab outcomes
+
+---
+
+## 📜 Patent
+
+NeuroStride's core technology — including its real-time EMG/EEG biofeedback pipeline and AI-assisted neurorehabilitation methodology — is protected by a **published patent**.
+
+| Field | Details |
+|---|---|
+| **Inventor** | Prathmesh (LTPratham) |
+| **Status** | Published |
+| **Document** | [`docs/NeuroStride_Patent_Published.pdf`](./docs/NeuroStride_Patent_Published.pdf) |
+
+The full patent document is available in the [`docs/`](./docs/) folder of this repository.
 
 ---
 

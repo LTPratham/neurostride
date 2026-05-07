@@ -55,9 +55,13 @@ yarn-error.log*
 Thumbs.db
 desktop.ini
 
+# ─── Docs & IP — always track ────────────────────────────────────────────────
+# The docs/ folder contains published patents and official documentation
+!docs/
+!docs/**
+
 # ─── Misc ─────────────────────────────────────────────────────────────────────
 *.log
 *.tmp
-*.docx
 coverage/
 .nyc_output/
