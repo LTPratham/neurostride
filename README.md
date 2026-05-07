@@ -38,6 +38,7 @@
 - [User Roles & Credentials](#-user-roles--test-credentials)
 - [Future Scope](#-future-scope)
 - [Patent](#-patent)
+- [Contributors](#-contributors)
 - [Contributing](#-contributing)
 - [License](#-license)
 
@@ -316,6 +317,31 @@ Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 ## 🔒 Security
 
 Please review our [SECURITY.md](./SECURITY.md) before reporting vulnerabilities. Do **not** open public issues for security bugs.
+
+---
+
+## 👨‍💻 Contributors
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/LTPratham">
+        <img src="https://github.com/LTPratham.png" width="80px" alt="Prathmesh"/><br/>
+        <sub><b>Prathmesh</b></sub>
+      </a><br/>
+      <sub>Founder · Full-Stack · AI · Hardware</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bhavyaverma81">
+        <img src="https://github.com/bhavyaverma81.png" width="80px" alt="Bhavya Verma"/><br/>
+        <sub><b>Bhavya Verma</b></sub>
+      </a><br/>
+      <sub>Co-Developer · Contributor</sub>
+    </td>
+  </tr>
+</table>
+
+See [CONTRIBUTORS.md](./CONTRIBUTORS.md) for the full list.
 
 ---
 
