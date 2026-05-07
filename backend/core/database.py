@@ -18,7 +18,7 @@ from models.db_models import Base, User, UserRole
 load_dotenv()
 
 # ── Settings ────────────────────────────────────────────────────────────────
-DATABASE_URL  = os.getenv("DATABASE_URL", "postgresql://neurostride:neurostride@localhost:5432/neurostride")
+DATABASE_URL  = os.getenv("DATABASE_URL", "sqlite:///./neurostride.db")
 SECRET_KEY    = os.getenv("SECRET_KEY", "neurostride-dev-secret-change-in-production")
 ALGORITHM     = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24   # 24 hours
@@ -29,9 +29,12 @@ LANGFUSE_SECRET_KEY = os.getenv("LANGFUSE_SECRET_KEY", "")
 
 
 # ── Database ────────────────────────────────────────────────────────────────
-# Add SSL for Supabase and reduce pool size for free tier
+# Use local SQLite by default for offline/demo mode.
+# If DATABASE_URL contains sqlite, enable the SQLite thread check override.
 connect_args = {}
-if "supabase" in DATABASE_URL:
+if "sqlite" in DATABASE_URL:
+    connect_args = {"check_same_thread": False}
+elif "supabase" in DATABASE_URL:
     connect_args = {"sslmode": "require"}
 
 engine = create_engine(
