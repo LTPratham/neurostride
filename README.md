@@ -76,7 +76,17 @@ The platform connects three roles — **Doctor**, **Patient**, and **Pharmacist*
 - Process and dispense orders with status tracking
 - Generate itemized tax invoices (PDF/DOCX) with GST calculation
 
-### 🔌 Hardware Integration
+### 🔌 Hardware Integration & Working Demo
+
+| Phase 1 MVP Prototype (Live) | Phase 3 Commercial Product Target |
+|---|---|
+| ![Phase 1 Prototype](documentation/main-documentation/neurostride_phase1_prototype.jpg) | ![Phase 3 Product](documentation/main-documentation/neurostride_phase3_product.jpg) |
+| **BOM Cost:** ~₹4,500 | **BOM Cost:** ₹11,200 |
+| **Microcontroller:** ESP32 + Servo Motor Arm | **Microcontroller:** ESP32 + ADS1299 8-Channel AFE |
+
+> 🎬 **Working Product Video Demo**: Watch live hardware actuation and intent detection:  
+> 🔗 **[Watch Product Demo Video (neurostride_demo_video.mp4)](documentation/main-documentation/neurostride_demo_video.mp4)**
+
 - **Neuphony EXG Synapse (ESP32)** — Reads raw EMG/EEG/ECG signals via USB serial
 - **Python-side IIR Filters** — Mirror of Synapse.h filter coefficients for offline processing
 - **FFT Band Analyser** — Delta / Theta / Alpha / Beta / Gamma power in real-time
@@ -147,7 +157,7 @@ cd neurostride
 
 # 2. Create a virtual environment
 cd backend
-python -m venv venv
+python -m venv 
 .\venv\Scripts\activate          # Windows
 # source venv/bin/activate       # Linux / macOS
 

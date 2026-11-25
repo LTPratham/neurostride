@@ -42,7 +42,7 @@ const orderBadge = (status) => {
   return badge(map[status] || 'gray')
 }
 
-const BASE = 'http://localhost:8000/api/pharmacy2'
+const BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000') + '/api/pharmacy2'
 
 // ── Voice Hook ────────────────────────────────────────────────────────────────
 function useVoice() {

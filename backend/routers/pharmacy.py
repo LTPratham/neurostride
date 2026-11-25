@@ -8,7 +8,14 @@ from datetime import datetime, timedelta
 from typing import Optional, List
 
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import shutil, platform
+_tesseract = shutil.which("tesseract")
+if not _tesseract and platform.system() == "Windows":
+    _win = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if os.path.exists(_win):
+        _tesseract = _win
+if _tesseract:
+    pytesseract.pytesseract.tesseract_cmd = _tesseract
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from groq import Groq

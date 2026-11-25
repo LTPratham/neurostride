@@ -63,7 +63,7 @@ export default function PatientChat() {
     setLoading(true)
     try {
       const res = await agentApi.chat({ message: msg, patient_id: user?.profile_id || user?.id })
-      const reply = res.data?.response || res.data?.message || 'I could not process that request.'
+      const reply = res.data?.reply || res.data?.response || res.data?.message || 'I could not process that request.'
       setMsgs(prev => [...prev, { role:'assistant', text: reply }])
     } catch {
       setMsgs(prev => [...prev, { role:'assistant', text: 'Sorry, I had trouble connecting. Please try again.' }])

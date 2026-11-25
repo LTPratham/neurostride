@@ -157,10 +157,10 @@ class BandAnalyser:
         try:
             import numpy
             self._numpy = numpy
-            print("[BandAnalyser] numpy available — using FFT band analysis")
+            print("[BandAnalyser] numpy available - using FFT band analysis")
         except ImportError:
             self._numpy = None
-            print("[BandAnalyser] numpy not found — using RMS fallback. Run: pip install numpy")
+            print("[BandAnalyser] numpy not found - using RMS fallback. Run: pip install numpy")
 
     def compute(self, samples: list) -> dict:
         if not samples:
@@ -292,7 +292,7 @@ class NeuphonyReader(threading.Thread):
         try:
             ser = serial.Serial(self.port, self.baud, timeout=2)
             buffer.mode = 'live'
-            print(f"[Neuphony] ✓ Connected on {self.port} @ {self.baud} baud")
+            print(f"[Neuphony] [OK] Connected on {self.port} @ {self.baud} baud")
             print(f"[Neuphony] Sample rate: {SAMPLE_RATE} Hz | Threshold: {EMG_THRESHOLD}")
             time.sleep(2)   # Wait for ESP32 reset after serial open
 
@@ -308,7 +308,7 @@ class NeuphonyReader(threading.Thread):
                     pass    # skip header lines / malformed packets
 
         except serial.SerialException as e:
-            print(f"[Neuphony] ✗ Serial error: {e}")
+            print(f"[Neuphony] [ERR] Serial error: {e}")
             print("[Neuphony] Switching to simulation mode")
             SimulationReader().run_inline()
         finally:
@@ -381,21 +381,21 @@ class ServoController:
         if port:
             try:
                 self.ser = serial.Serial(port, baud, timeout=1)
-                print(f"[Servo] ✓ Connected on {port}")
+                print(f"[Servo] [OK] Connected on {port}")
             except serial.SerialException as e:
-                print(f"[Servo] ✗ Could not open {port}: {e} — commands printed only")
+                print(f"[Servo] [ERR] Could not open {port}: {e} - commands printed only")
 
     def open_hand(self):
         if self.state == 'open': return
         self.state = 'open'
         self._send(SERVO_OPEN_CMD)
-        print("[Servo] ▲ HAND OPEN")
+        print("[Servo] OPEN")
 
     def close_hand(self):
         if self.state == 'closed': return
         self.state = 'closed'
         self._send(SERVO_CLOSE_CMD)
-        print("[Servo] ▼ HAND CLOSED")
+        print("[Servo] CLOSED")
 
     def _send(self, cmd: str):
         if self.ser and self.ser.is_open:
@@ -418,7 +418,7 @@ def intent_control_loop(servo: ServoController):
 async def ws_handler(websocket):
     """Streams sensor data to the frontend at 20 fps."""
     addr = getattr(websocket, 'remote_address', 'unknown')
-    print(f"[WS] ✓ Client connected: {addr}")
+    print(f"[WS] [OK] Client connected: {addr}")
     try:
         while True:
             await websocket.send(json.dumps(buffer.snapshot()))
@@ -429,7 +429,7 @@ async def ws_handler(websocket):
 
 async def start_ws_server():
     async with websockets.serve(ws_handler, WS_HOST, WS_PORT):
-        print(f"[WS] ✓ WebSocket running on ws://localhost:{WS_PORT}")
+        print(f"[WS] [OK] WebSocket running on ws://localhost:{WS_PORT}")
         print(f"[WS]   Frontend sensor page will auto-connect\n")
         await asyncio.Future()
 
@@ -481,7 +481,7 @@ Examples:
     EMG_THRESHOLD = args.threshold
 
     print("=" * 55)
-    print("  NeuroStride — Neuphony EXG Synapse Bridge")
+    print("  NeuroStride - Neuphony EXG Synapse Bridge")
     print("=" * 55)
 
     # Start data reader
@@ -490,7 +490,7 @@ Examples:
     else:
         port = args.port or detect_neuphony_port()
         if not port:
-            print("[!] No port found → simulation mode")
+            print("[!] No port found -> simulation mode")
             reader = SimulationReader()
         else:
             reader = NeuphonyReader(port, baud=args.baud, apply_filter=args.raw)
@@ -498,7 +498,7 @@ Examples:
     reader.start()
 
     # Start servo
-    servo = ServoController(servo_port=args.servo)
+    servo = ServoController(port=args.servo)
     servo_thread = threading.Thread(target=intent_control_loop, args=(servo,), daemon=True)
     servo_thread.start()
 

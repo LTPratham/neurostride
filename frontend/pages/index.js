@@ -17,6 +17,8 @@ export default function Home() {
   }, [user, loading, router])
 
   useEffect(() => {
+    if (loading) return
+
     const saved = localStorage.getItem('ns-theme')
     if (saved) {
       document.documentElement.setAttribute('data-theme', saved)
@@ -26,7 +28,7 @@ export default function Home() {
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis') })
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+    }, { threshold: 0.05, rootMargin: '40px 0px 0px 0px' })
     document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(el => obs.observe(el))
 
     window.toggleTheme = () => {
@@ -132,7 +134,7 @@ export default function Home() {
     window.renderCal()
 
     return () => obs.disconnect()
-  }, [])
+  }, [loading])
 
   if (loading) return null
 

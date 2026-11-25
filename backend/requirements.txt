@@ -38,3 +38,7 @@ psycopg2-binary>=2.9.9  # PostgreSQL (production)
 
 # Env / config
 python-dotenv>=1.0.0
+
+# Hardware / TTS (present in venv but were missing from requirements)
+pyserial>=3.5
+edge-tts>=6.1.9

@@ -1,0 +1,48 @@
+The Patent Office Journal No. 07/2026 Dated  13/02/2026                                    18354  
+ (12) PATENT APPLICATION PUBLICATION  (21) Application No.202611002192 A  
+(19) INDIA  
+(22) Date of filing of Application :08/01/2026  (43) Publication Date : 13/02/2026  
+  
+(54) Title of the invention : NON -INVASIVE EEG -BASED HOME CONTROL SYSTEM  
+ 
+  
+(51) International classification  :G05B 
+15/02, 
+H04L 
+12/28, 
+A61B 
+5/0476, 
+A61B 
+5/374, 
+G06N 3/08  
+(31) Priority Document No  :NA 
+(32) Priority Date  :NA 
+(33) Name of priority country  :NA 
+(86) International Application No  
+        Filing Date  : 
+:01/01/1900  
+(87) International Publication No  : NA  
+(61) Patent of Addition to Application Number  
+        Filing Date  :NA 
+:NA 
+(62) Divisional to Application Number  
+        Filing Date  :NA 
+:NA 
+   
+(71)Name of Applicant :  
+   1)Lovely Professional University  
+      Address of Applicant :Lovely Professional University, Delhi Jalandhar GT 
+Road Phagwara - 144411. Phagwara Punjab India  
+(72)Name of Inventor :  
+   1)Prathamesh Arun Sawarkar  
+   2)Dr. Sweta Chander  
+   3)Dr. Sanjeet Kumar Sinha  
+ 
+(57) Abstract :  
+The System that enables users to operate home appliances using non -invasive neural signals. The system (100) includes an EEG headset (102) for capturing brain 
+activity, a preprocessing module ( 104) for filtering signals, and a feature -extraction module (106) for deriving meaningful neural parameters. A classification module 
+(108) interprets these parameters into actionable commands transmitted through a communication interface (110) to an IoT hu b (112). The IoT hub (112) drives a 
+device -control module (114) for operating appliances. Additional modules include a feedback module (116) for user confirmation, a ca libration module (118) for 
+adaptive tuning, and a security module (120) for ensuring dat a protection. The system (100) supports multiple neural -control paradigms (122), offering a flexible and 
+accessible home -automation solution. FIG.1  
+No. of Pages : 20  No. of Claims : 10  
